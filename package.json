@@ -1,0 +1,32 @@
+{
+  "name": "pure-blog-api",
+  "version": "1.0.0",
+  "description": "API for PureBlog",
+  "main": "index.js",
+  "scripts": {
+    "dev": "NODE_ENV=development nodemon --inspect index.js"
+  },
+  "keywords": [],
+  "author": "njzy",
+  "license": "MIT",
+  "dependencies": {
+    "bcrypt": "^3.0.1",
+    "body-parser": "^1.18.3",
+    "dotenv": "^6.1.0",
+    "express": "^4.16.4",
+    "jsonwebtoken": "^8.3.0",
+    "mongoose": "^5.3.4"
+  },
+  "devDependencies": {
+    "morgan": "^1.9.1",
+    "nodemon": "^1.18.4"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/0njzy0/PureBlog-API.git"
+  },
+  "bugs": {
+    "url": "https://github.com/0njzy0/PureBlog-API/issues"
+  },
+  "homepage": "https://github.com/0njzy0/PureBlog-API#readme"
+}
