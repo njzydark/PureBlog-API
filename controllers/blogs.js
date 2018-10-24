@@ -2,10 +2,26 @@ const Blog = require('../models/blogs')
 
 module.exports = {
   async getAllBlogs(req, res, next) {
-    res.send('get blogs')
+    try {
+      const blogs = await Blog.find().exec()
+      res.status(200).send({
+        success: true,
+        data: blogs
+      })
+    } catch (e) {
+      next(e)
+    }
   },
   async getBlogById(req, res, next) {
-    res.send('get blog by id ' + req.params.id)
+    try {
+      const blog = await Blog.findById(req.params.id).exec()
+      res.status(200).send({
+        success: true,
+        data: blog
+      })
+    } catch (e) {
+      next(e)
+    }
   },
   async createBlog(req, res, next) {
     const payload = req.decoded
@@ -42,6 +58,14 @@ module.exports = {
     res.send('update blog by id ' + req.params.id)
   },
   async deleteBlogById(req, res, next) {
-    res.send('delete blog by id ' + req.params.id)
-  },
+    try {
+      const result = await Blog.findByIdAndDelete(req.params.id).exec()
+      res.status(200).send({
+        success: true,
+        data: result
+      })
+    } catch (e) {
+      next(e)
+    }
+  }
 }
