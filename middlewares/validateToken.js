@@ -15,7 +15,10 @@ module.exports = (req, res, next) => {
       req.decoded = result
       next()
     } catch (err) {
-      next(err)
+      res.status(401).send({
+        success: false,
+        message: 'Token验证失败，请重新登录'
+      })
     }
   } else {
     res.status(401).send({
