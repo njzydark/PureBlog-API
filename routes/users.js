@@ -1,10 +1,10 @@
 const router = require('express').Router()
 const controller = require('../controllers/users')
 const validateToken = require('../middlewares/validateToken')
-const isAdmin = require('../middlewares/isAdmin')
+const permission = require('../middlewares/permission')
 
-router.get('/', validateToken, isAdmin, controller.getAllUsers)
-router.get('/:id', validateToken, isAdmin, controller.getUserById)
-router.delete('/:id', validateToken, isAdmin, controller.deleteUserById)
+router.get('/', validateToken, permission.isAdmin, controller.getAllUsers)
+router.get('/:id', validateToken, permission.checkUserId, controller.getUserById)
+router.delete('/:id', validateToken, permission.checkUserId, controller.deleteUserById)
 
 module.exports = router
