@@ -5,6 +5,6 @@ const permission = require('../middlewares/permission')
 
 router.get('/', validateToken, permission.isAdmin, controller.getAllUsers)
 router.get('/:id', validateToken, permission.checkUserId, controller.getUserById)
-router.delete('/:id', validateToken, permission.checkUserId, controller.deleteUserById)
+router.delete('/:id', validateToken, permission.isAdmin, controller.deleteUserById)
 
 module.exports = router
