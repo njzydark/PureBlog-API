@@ -18,12 +18,13 @@ const blogSchema = new Schema({
   },
   // 创建时间
   createTime: {
-    type: Date,
+    type: Number,
     default: new Date().getTime()
   },
   // 更新时间
   updateTime: {
-    type: Date
+    type: Number,
+    default: null
   },
   // 文章所属分类
   categoryId: {
