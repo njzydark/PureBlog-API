@@ -34,17 +34,17 @@ const blogSchema = new Schema({
   // 文章所属标签
   tagsId: {
     type: Array,
-    default: null
+    default: []
   },
   // 阅读次数
   viewCount: {
     type: Number,
     default: 0
   },
-  // 点赞次数
-  likeCount: {
-    type: Number,
-    default: 0
+  // 点赞用户Id
+  likesId: {
+    type: Array,
+    default: []
   },
   // 作者ID
   authorId: {
