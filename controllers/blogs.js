@@ -55,7 +55,79 @@ module.exports = {
     }
   },
   async updateBlogById(req, res, next) {
-    res.send('update blog by id ' + req.params.id)
+    const {
+      title,
+      content,
+      categoryId,
+      tagsId
+    } = req.body
+    if (!title || !content) {
+      return res.status(400).send({
+        success: false,
+        message: '标题或正文不能为空'
+      })
+    }
+    try {
+      const blog = await Blog.findByIdAndUpdate(req.params.id, {
+        title,
+        content,
+        categoryId,
+        tagsId,
+        updateTime: new Date().getTime()
+      }, {
+        new: true
+      }).exec()
+      res.status(201).send({
+        success: true,
+        data: blog
+      })
+    } catch (e) {
+      next(e)
+    }
+  },
+  async updateBlogAttrById(req, res, next) {
+    const payload = req.decoded
+    const {
+      view,
+      like
+    } = req.body
+    if (!view && !like) {
+      return res.status(400).send({
+        success: false,
+        message: '无效的操作'
+      })
+    }
+    try {
+      const blog = await Blog.findById(req.params.id)
+      let result = null
+      if (view) {
+        const viewCount = blog.viewCount + 1
+        result = await Blog.findByIdAndUpdate(req.params.id, {
+          viewCount
+        }, {
+          new: true
+        })
+      } else if (like) {
+        const likesId = blog.likesId
+        if (likesId.includes(payload.id)) {
+          const index = likesId.indexOf(payload.id)
+          likesId.splice(index, 1)
+        } else {
+          likesId.push(payload.id)
+        }
+        result = await Blog.findByIdAndUpdate(req.params.id, {
+          likesId
+        }, {
+          new: true
+        })
+      }
+      res.status(201).send({
+        success: true,
+        data: result
+      })
+    } catch (e) {
+      next(e)
+    }
   },
   async deleteBlogById(req, res, next) {
     try {
