@@ -28,8 +28,8 @@ module.exports = {
     const {
       title,
       content,
-      categoryId,
-      tagsId
+      category,
+      tags
     } = req.body
     if (!title || !content) {
       return res.status(400).send({
@@ -39,11 +39,11 @@ module.exports = {
     }
     try {
       const blog = new Blog({
-        authorId: payload.id,
+        author: payload.id,
         title,
         content,
-        categoryId,
-        tagsId
+        category,
+        tags
       })
       const result = await blog.save()
       res.status(201).send({
@@ -58,8 +58,8 @@ module.exports = {
     const {
       title,
       content,
-      categoryId,
-      tagsId
+      category,
+      tags
     } = req.body
     if (!title || !content) {
       return res.status(400).send({
@@ -71,8 +71,8 @@ module.exports = {
       const blog = await Blog.findByIdAndUpdate(req.params.id, {
         title,
         content,
-        categoryId,
-        tagsId,
+        category,
+        tags,
         updateTime: new Date().getTime()
       }, {
         new: true
@@ -85,13 +85,11 @@ module.exports = {
       next(e)
     }
   },
-  async updateBlogAttrById(req, res, next) {
-    const payload = req.decoded
+  async updateBlogViewsById(req, res, next) {
     const {
-      view,
-      like
+      view
     } = req.body
-    if (!view && !like) {
+    if (!view) {
       return res.status(400).send({
         success: false,
         message: '无效的操作'
@@ -99,28 +97,45 @@ module.exports = {
     }
     try {
       const blog = await Blog.findById(req.params.id)
-      let result = null
-      if (view) {
-        const viewCount = blog.viewCount + 1
-        result = await Blog.findByIdAndUpdate(req.params.id, {
-          viewCount
-        }, {
-          new: true
-        })
-      } else if (like) {
-        const likesId = blog.likesId
-        if (likesId.includes(payload.id)) {
-          const index = likesId.indexOf(payload.id)
-          likesId.splice(index, 1)
-        } else {
-          likesId.push(payload.id)
-        }
-        result = await Blog.findByIdAndUpdate(req.params.id, {
-          likesId
-        }, {
-          new: true
-        })
+      const views = blog.views + 1
+      const result = await Blog.findByIdAndUpdate(req.params.id, {
+        views
+      }, {
+        new: true
+      })
+      res.status(201).send({
+        success: true,
+        data: result
+      })
+    } catch (e) {
+      next(e)
+    }
+  },
+  async updateBlogLikesById(req, res, next) {
+    const {
+      like
+    } = req.body
+    if (!like) {
+      return res.status(400).send({
+        success: false,
+        message: '无效的操作'
+      })
+    }
+    try {
+      const blog = await Blog.findById(req.params.id)
+      const likes = blog.likes
+      const payload = req.decoded
+      if (likes.includes(payload.id)) {
+        const index = likes.indexOf(payload.id)
+        likes.splice(index, 1)
+      } else {
+        likes.push(payload.id)
       }
+      const result = await Blog.findByIdAndUpdate(req.params.id, {
+        likes
+      }, {
+        new: true
+      })
       res.status(201).send({
         success: true,
         data: result

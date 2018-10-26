@@ -7,7 +7,8 @@ router.get('/', controller.getAllBlogs)
 router.get('/:id', controller.getBlogById)
 router.post('/', validateToken, controller.createBlog)
 router.put('/:id', validateToken, permission.checkBlogId, controller.updateBlogById)
-router.patch('/:id', validateToken, permission.checkBlogId, controller.updateBlogAttrById)
+router.patch('/:id/views', validateToken, permission.checkBlogId, controller.updateBlogViewsById)
+router.patch('/:id/likes', validateToken, permission.checkBlogId, controller.updateBlogLikesById)
 router.delete('/:id', validateToken, permission.checkBlogId, controller.deleteBlogById)
 
 module.exports = router
