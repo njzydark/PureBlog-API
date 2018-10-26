@@ -26,28 +26,28 @@ const blogSchema = new Schema({
     type: Number,
     default: null
   },
-  // 文章所属分类
-  categoryId: {
+  // 文章所属分类 类别Id
+  category: {
     type: String,
     default: null
   },
-  // 文章所属标签
-  tagsId: {
+  // 文章所属标签 标签Id
+  tags: {
     type: Array,
     default: []
   },
   // 阅读次数
-  viewCount: {
+  views: {
     type: Number,
     default: 0
   },
-  // 点赞用户Id
-  likesId: {
+  // 点赞用户 用户Id
+  likes: {
     type: Array,
     default: []
   },
   // 作者ID
-  authorId: {
+  author: {
     type: String,
     required: true
   }
