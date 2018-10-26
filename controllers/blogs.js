@@ -12,6 +12,36 @@ module.exports = {
       next(e)
     }
   },
+  async getBlogsByCategoryId(req, res, next) {
+    try {
+      const category = req.params.id
+      const blogs = await Blog.find({
+        category
+      }).exec()
+      res.status(200).send({
+        success: true,
+        data: blogs
+      })
+    } catch (e) {
+      next(e)
+    }
+  },
+  async getBlogsByTagId(req, res, next) {
+    try {
+      const tags = req.params.id
+      const blogs = await Blog.find({
+        tags: {
+          $in: tags
+        }
+      }).exec()
+      res.status(200).send({
+        success: true,
+        data: blogs
+      })
+    } catch (e) {
+      next(e)
+    }
+  },
   async getBlogById(req, res, next) {
     try {
       const blog = await Blog.findById(req.params.id).exec()
