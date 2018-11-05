@@ -5,6 +5,7 @@ mongoose.Promise = global.Promise
 const logger = require('morgan')
 const bodyParser = require('body-parser')
 const handleError = require('./middlewares/handleError')
+const handleCORS = require('./middlewares/handleCORS')
 
 const app = express()
 // 引入路由表
@@ -26,6 +27,8 @@ app.use(bodyParser.urlencoded({
 if (environment == 'development') {
   app.use(logger('dev'))
 }
+
+app.all('*', handleCORS)
 
 routes(app)
 
