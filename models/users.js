@@ -31,6 +31,11 @@ const userSchema = new Schema({
     required: true,
     trim: true,
     unique: true
+  },
+  // 头像
+  avatar: {
+    type: String,
+    trim: true
   }
 })
 

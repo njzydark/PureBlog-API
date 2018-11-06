@@ -16,6 +16,11 @@ const blogSchema = new Schema({
     required: true,
     trim: true
   },
+  // 封面
+  cover: {
+    type: String,
+    trim: true
+  },
   // 创建时间
   createTime: {
     type: Number,
@@ -28,29 +33,50 @@ const blogSchema = new Schema({
   },
   // 文章所属分类 类别Id
   category: {
-    type: String,
+    type: Schema.Types.ObjectId,
+    ref: 'Category',
     default: null
   },
   // 文章所属标签 标签Id
-  tags: {
-    type: Array,
-    default: []
-  },
+  tags: [{
+    type: Schema.Types.ObjectId,
+    ref: 'Tag'
+  }],
   // 阅读次数
   views: {
     type: Number,
     default: 0
   },
   // 点赞用户 用户Id
-  likes: {
-    type: Array,
-    default: []
-  },
+  likes: [{
+    type: Schema.Types.ObjectId,
+    ref: 'User'
+  }],
   // 作者ID
   author: {
-    type: String,
+    type: Schema.Types.ObjectId,
+    ref: 'User',
     required: true
   }
 })
+
+function populate() {
+  this.populate({
+    path: 'author',
+    select: ['_id', 'name', 'avatar']
+  }).populate({
+    path: 'likes',
+    select: ['_id', 'name']
+  }).populate({
+    path: 'tags',
+    select: ['_id', 'name']
+  }).populate({
+    path: 'category',
+    select: ['_id', 'name']
+  })
+}
+
+blogSchema.pre('find', populate)
+blogSchema.pre('findOne', populate)
 
 module.exports = mongoose.model('Blog', blogSchema)
