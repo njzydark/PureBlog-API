@@ -155,8 +155,8 @@ module.exports = {
       const blog = await Blog.findById(req.params.id)
       const likes = blog.likes
       const payload = req.decoded
-      if (likes.includes(payload.id)) {
-        const index = likes.indexOf(payload.id)
+      const index = likes.findIndex(item => item.id == payload.id)
+      if (index > -1) {
         likes.splice(index, 1)
       } else {
         likes.push(payload.id)

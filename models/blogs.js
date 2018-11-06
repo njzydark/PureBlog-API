@@ -19,7 +19,8 @@ const blogSchema = new Schema({
   // 封面
   cover: {
     type: String,
-    trim: true
+    trim: true,
+    default: null
   },
   // 创建时间
   createTime: {

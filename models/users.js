@@ -35,7 +35,8 @@ const userSchema = new Schema({
   // 头像
   avatar: {
     type: String,
-    trim: true
+    trim: true,
+    default: null
   }
 })
 
