@@ -23,7 +23,6 @@ module.exports = {
         if (match) {
           const payload = {
             id: user._id,
-            name: user.name,
             role: user.role
           }
           const secret = process.env.JWT_SECRET
