@@ -58,6 +58,7 @@ module.exports = {
     const {
       title,
       content,
+      cover,
       category,
       tags
     } = req.body
@@ -72,6 +73,7 @@ module.exports = {
         author: payload.id,
         title,
         content,
+        cover,
         category,
         tags
       })
