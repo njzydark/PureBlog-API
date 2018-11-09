@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const config = require('../config')
 
 const Schema = mongoose.Schema
 
@@ -61,6 +62,18 @@ const blogSchema = new Schema({
   }
 })
 
+// 分页
+function paging() {
+  let {
+    page,
+    limit
+  } = this.schema.set('reqQuery')
+  limit = limit == undefined ? parseInt(config.blogsLimit) : parseInt(limit)
+  page = page == undefined ? 1 : parseInt(page)
+  this.skip(limit * (page - 1)).limit(limit)
+}
+
+// 关联查询
 function populate() {
   this.populate({
     path: 'author',
@@ -77,7 +90,10 @@ function populate() {
   })
 }
 
-blogSchema.pre('find', populate)
+blogSchema.pre('find', async function() {
+  await paging.call(this)
+  await populate.call(this)
+})
 blogSchema.pre('findOne', populate)
 
 module.exports = mongoose.model('Blog', blogSchema)

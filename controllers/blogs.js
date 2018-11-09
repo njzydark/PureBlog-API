@@ -3,10 +3,13 @@ const Blog = require('../models/blogs')
 module.exports = {
   async getAllBlogs(req, res, next) {
     try {
+      Blog.schema.set('reqQuery', req.query)
+      const total = await Blog.find().estimatedDocumentCount().exec()
       const blogs = await Blog.find().exec()
       res.status(200).send({
         success: true,
-        data: blogs
+        data: blogs,
+        total
       })
     } catch (e) {
       next(e)
@@ -14,6 +17,7 @@ module.exports = {
   },
   async getBlogsByCategoryId(req, res, next) {
     try {
+      Blog.schema.set('reqQuery', req.query)
       const category = req.params.id
       const blogs = await Blog.find({
         category
@@ -28,6 +32,7 @@ module.exports = {
   },
   async getBlogsByTagId(req, res, next) {
     try {
+      Blog.schema.set('reqQuery', req.query)
       const tags = req.params.id
       const blogs = await Blog.find({
         tags: {
