@@ -1,4 +1,5 @@
 const Blog = require('../models/blogs')
+const config = require('../config')
 
 module.exports = {
   async getAllBlogs(req, res, next) {
@@ -10,6 +11,7 @@ module.exports = {
       res.status(200).send({
         success: true,
         data: blogs,
+        limit: config.blogsLimit,
         total
       })
     } catch (e) {
@@ -30,6 +32,7 @@ module.exports = {
       res.status(200).send({
         success: true,
         data: blogs,
+        limit: config.blogsLimit,
         total
       })
     } catch (e) {
@@ -54,6 +57,7 @@ module.exports = {
       res.status(200).send({
         success: true,
         data: blogs,
+        limit: config.blogsLimit,
         total
       })
     } catch (e) {
