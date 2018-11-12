@@ -4,8 +4,9 @@ module.exports = {
   async getAllBlogs(req, res, next) {
     try {
       Blog.schema.set('reqQuery', req.query)
-      const total = await Blog.find().estimatedDocumentCount().exec()
-      const blogs = await Blog.find().exec()
+      const blogsPromise = Blog.find().exec()
+      const totalPromise = Blog.find().estimatedDocumentCount().exec()
+      const [blogs, total] = await Promise.all([blogsPromise, totalPromise])
       res.status(200).send({
         success: true,
         data: blogs,
@@ -19,12 +20,17 @@ module.exports = {
     try {
       Blog.schema.set('reqQuery', req.query)
       const category = req.params.id
-      const blogs = await Blog.find({
+      const blogsPromise = Blog.find({
         category
       }).exec()
+      const totalPromise = Blog.find({
+        category
+      }).countDocuments().exec()
+      const [blogs, total] = await Promise.all([blogsPromise, totalPromise])
       res.status(200).send({
         success: true,
-        data: blogs
+        data: blogs,
+        total
       })
     } catch (e) {
       next(e)
@@ -34,14 +40,21 @@ module.exports = {
     try {
       Blog.schema.set('reqQuery', req.query)
       const tags = req.params.id
-      const blogs = await Blog.find({
+      const blogsPromise = Blog.find({
         tags: {
           $in: tags
         }
       }).exec()
+      const totalPromise = Blog.find({
+        tags: {
+          $in: tags
+        }
+      }).countDocuments().exec()
+      const [blogs, total] = await Promise.all([blogsPromise, totalPromise])
       res.status(200).send({
         success: true,
-        data: blogs
+        data: blogs,
+        total
       })
     } catch (e) {
       next(e)
