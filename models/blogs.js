@@ -90,9 +90,9 @@ function populate() {
   })
 }
 
-blogSchema.pre('find', async function() {
-  await paging.call(this)
-  await populate.call(this)
+blogSchema.pre('find', function() {
+  paging.call(this)
+  populate.call(this)
 })
 blogSchema.pre('findOne', populate)
 
