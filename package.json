@@ -4,7 +4,10 @@
   "description": "API for PureBlog",
   "main": "index.js",
   "scripts": {
-    "dev": "NODE_ENV=development nodemon --inspect index.js"
+    "dev": "NODE_ENV=development nodemon --inspect index.js",
+    "lint": "eslint --ext .js ./;exit 0",
+    "lint:fix": "eslint --fix --ext .js ./;exit 0",
+    "eslint-check": "eslint --print-config . | eslint-config-prettier-check"
   },
   "keywords": [],
   "author": "njzy",
@@ -18,8 +21,17 @@
     "mongoose": "^5.3.4"
   },
   "devDependencies": {
+    "eslint": "^5.9.0",
+    "eslint-config-prettier": "^3.3.0",
+    "eslint-config-standard": "^12.0.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-node": "^8.0.0",
+    "eslint-plugin-prettier": "^3.0.0",
+    "eslint-plugin-promise": "^4.0.1",
+    "eslint-plugin-standard": "^4.0.0",
     "morgan": "^1.9.1",
-    "nodemon": "^1.18.4"
+    "nodemon": "^1.18.4",
+    "prettier": "^1.15.2"
   },
   "repository": {
     "type": "git",
