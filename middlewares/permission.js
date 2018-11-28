@@ -1,4 +1,3 @@
-const User = require('../models/users')
 const Blog = require('../models/blogs')
 
 module.exports = {

@@ -4,10 +4,7 @@ const User = require('../models/users')
 
 module.exports = {
   async login(req, res, next) {
-    const {
-      name,
-      password
-    } = req.body
+    const { name, password } = req.body
     if (!name || !password) {
       return res.status(400).send({
         success: false,
@@ -55,11 +52,7 @@ module.exports = {
     }
   },
   async register(req, res, next) {
-    const {
-      name,
-      password,
-      email
-    } = req.body
+    const { name, password, email } = req.body
     if (!name || !password || !email) {
       return res.status(400).send({
         success: false,

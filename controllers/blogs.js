@@ -6,7 +6,9 @@ module.exports = {
     try {
       Blog.schema.set('reqQuery', req.query)
       const blogsPromise = Blog.find().exec()
-      const totalPromise = Blog.find().estimatedDocumentCount().exec()
+      const totalPromise = Blog.find()
+        .estimatedDocumentCount()
+        .exec()
       const [blogs, total] = await Promise.all([blogsPromise, totalPromise])
       res.status(200).send({
         success: true,
@@ -27,7 +29,9 @@ module.exports = {
       }).exec()
       const totalPromise = Blog.find({
         category
-      }).countDocuments().exec()
+      })
+        .countDocuments()
+        .exec()
       const [blogs, total] = await Promise.all([blogsPromise, totalPromise])
       res.status(200).send({
         success: true,
@@ -52,7 +56,9 @@ module.exports = {
         tags: {
           $in: tags
         }
-      }).countDocuments().exec()
+      })
+        .countDocuments()
+        .exec()
       const [blogs, total] = await Promise.all([blogsPromise, totalPromise])
       res.status(200).send({
         success: true,
@@ -77,13 +83,7 @@ module.exports = {
   },
   async createBlog(req, res, next) {
     const payload = req.decoded
-    const {
-      title,
-      content,
-      cover,
-      category,
-      tags
-    } = req.body
+    const { title, content, cover, category, tags } = req.body
     if (!title || !content) {
       return res.status(400).send({
         success: false,
@@ -109,12 +109,7 @@ module.exports = {
     }
   },
   async updateBlogById(req, res, next) {
-    const {
-      title,
-      content,
-      category,
-      tags
-    } = req.body
+    const { title, content, category, tags } = req.body
     if (!title || !content) {
       return res.status(400).send({
         success: false,
@@ -122,15 +117,19 @@ module.exports = {
       })
     }
     try {
-      const blog = await Blog.findByIdAndUpdate(req.params.id, {
-        title,
-        content,
-        category,
-        tags,
-        updateTime: new Date().getTime()
-      }, {
-        new: true
-      }).exec()
+      const blog = await Blog.findByIdAndUpdate(
+        req.params.id,
+        {
+          title,
+          content,
+          category,
+          tags,
+          updateTime: new Date().getTime()
+        },
+        {
+          new: true
+        }
+      ).exec()
       res.status(201).send({
         success: true,
         data: blog
@@ -140,9 +139,7 @@ module.exports = {
     }
   },
   async updateBlogViewsById(req, res, next) {
-    const {
-      view
-    } = req.body
+    const { view } = req.body
     if (!view) {
       return res.status(400).send({
         success: false,
@@ -152,11 +149,15 @@ module.exports = {
     try {
       const blog = await Blog.findById(req.params.id)
       const views = blog.views + 1
-      const result = await Blog.findByIdAndUpdate(req.params.id, {
-        views
-      }, {
-        new: true
-      })
+      const result = await Blog.findByIdAndUpdate(
+        req.params.id,
+        {
+          views
+        },
+        {
+          new: true
+        }
+      )
       res.status(201).send({
         success: true,
         data: result
@@ -166,9 +167,7 @@ module.exports = {
     }
   },
   async updateBlogLikesById(req, res, next) {
-    const {
-      like
-    } = req.body
+    const { like } = req.body
     if (!like) {
       return res.status(400).send({
         success: false,
@@ -185,11 +184,15 @@ module.exports = {
       } else {
         likes.push(payload.id)
       }
-      const result = await Blog.findByIdAndUpdate(req.params.id, {
-        likes
-      }, {
-        new: true
-      })
+      const result = await Blog.findByIdAndUpdate(
+        req.params.id,
+        {
+          likes
+        },
+        {
+          new: true
+        }
+      )
       res.status(201).send({
         success: true,
         data: result

@@ -40,20 +40,24 @@ const blogSchema = new Schema({
     default: null
   },
   // 文章所属标签 标签Id
-  tags: [{
-    type: Schema.Types.ObjectId,
-    ref: 'Tag'
-  }],
+  tags: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'Tag'
+    }
+  ],
   // 阅读次数
   views: {
     type: Number,
     default: 0
   },
   // 点赞用户 用户Id
-  likes: [{
-    type: Schema.Types.ObjectId,
-    ref: 'User'
-  }],
+  likes: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'User'
+    }
+  ],
   // 作者ID
   author: {
     type: Schema.Types.ObjectId,
@@ -64,10 +68,7 @@ const blogSchema = new Schema({
 
 // 分页
 function paging() {
-  let {
-    page,
-    limit
-  } = this.schema.set('reqQuery')
+  let { page, limit } = this.schema.set('reqQuery')
   limit = limit == undefined ? parseInt(config.blogsLimit) : parseInt(limit)
   page = page == undefined ? 1 : parseInt(page)
   this.skip(limit * (page - 1)).limit(limit)
@@ -78,16 +79,19 @@ function populate() {
   this.populate({
     path: 'author',
     select: ['_id', 'name', 'avatar']
-  }).populate({
-    path: 'likes',
-    select: ['_id', 'name']
-  }).populate({
-    path: 'tags',
-    select: ['_id', 'name']
-  }).populate({
-    path: 'category',
-    select: ['_id', 'name']
   })
+    .populate({
+      path: 'likes',
+      select: ['_id', 'name']
+    })
+    .populate({
+      path: 'tags',
+      select: ['_id', 'name']
+    })
+    .populate({
+      path: 'category',
+      select: ['_id', 'name']
+    })
 }
 
 blogSchema.pre('find', function() {

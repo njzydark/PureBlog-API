@@ -19,9 +19,11 @@ const stage = require('./config')[environment]
 // 处理json数据
 app.use(bodyParser.json())
 // 处理表单数据
-app.use(bodyParser.urlencoded({
-  extended: true
-}))
+app.use(
+  bodyParser.urlencoded({
+    extended: true
+  })
+)
 
 // 运行环境为开发时，开启错误日志
 if (environment == 'development') {
@@ -36,17 +38,21 @@ routes(app)
 app.use(handleError)
 
 // 数据库连接
-mongoose.connect(process.env.DB_URL, {
-  useNewUrlParser: true,
-  useFindAndModify: false,
-  useCreateIndex: true
-}, (err) => {
-  if (err) {
-    console.log(err)
-  } else {
-    console.log('数据库连接成功')
+mongoose.connect(
+  process.env.DB_URL,
+  {
+    useNewUrlParser: true,
+    useFindAndModify: false,
+    useCreateIndex: true
+  },
+  err => {
+    if (err) {
+      console.log(err)
+    } else {
+      console.log('数据库连接成功')
+    }
   }
-})
+)
 
 app.listen(stage.port, () => {
   console.log(`服务监听地址 http://localhost:${stage.port}`)

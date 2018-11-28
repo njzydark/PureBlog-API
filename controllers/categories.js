@@ -13,9 +13,7 @@ module.exports = {
     }
   },
   async createCategory(req, res, next) {
-    const {
-      name
-    } = req.body
+    const { name } = req.body
     if (!name) {
       return res.status(400).send({
         success: false,
@@ -36,9 +34,7 @@ module.exports = {
     }
   },
   async updateCategoryById(req, res, next) {
-    const {
-      name
-    } = req.body
+    const { name } = req.body
     if (!name) {
       return res.status(400).send({
         success: false,
@@ -46,11 +42,15 @@ module.exports = {
       })
     }
     try {
-      const category = await Category.findByIdAndUpdate(req.params.id, {
-        name
-      }, {
-        new: true
-      }).exec()
+      const category = await Category.findByIdAndUpdate(
+        req.params.id,
+        {
+          name
+        },
+        {
+          new: true
+        }
+      ).exec()
       res.status(201).send({
         success: true,
         data: category
