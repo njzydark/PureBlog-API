@@ -6,11 +6,6 @@ const permission = require('../middlewares/permission')
 router.get('/', controller.getAllTags)
 router.post('/', validateToken, permission.isAdmin, controller.createTag)
 router.put('/:id', validateToken, permission.isAdmin, controller.updateTagById)
-router.delete(
-  '/:id',
-  validateToken,
-  permission.isAdmin,
-  controller.deleteTagById
-)
+router.delete('/:id', validateToken, permission.isAdmin, controller.deleteTagById)
 
 module.exports = router
