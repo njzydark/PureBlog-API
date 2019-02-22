@@ -13,12 +13,12 @@
   "author": "njzy",
   "license": "MIT",
   "dependencies": {
-    "bcrypt": "^3.0.2",
+    "bcrypt": "^3.0.4",
     "body-parser": "^1.18.3",
-    "dotenv": "^6.1.0",
+    "dotenv": "^6.2.0",
     "express": "^4.16.4",
-    "jsonwebtoken": "^8.4.0",
-    "mongoose": "^5.3.13"
+    "jsonwebtoken": "^8.5.0",
+    "mongoose": "^5.4.14"
   },
   "husky": {
     "hooks": {
@@ -29,19 +29,19 @@
     "*.js": "eslint"
   },
   "devDependencies": {
-    "eslint": "^5.9.0",
-    "eslint-config-prettier": "^3.3.0",
+    "eslint": "^5.14.1",
+    "eslint-config-prettier": "^3.6.0",
     "eslint-config-standard": "^12.0.0",
-    "eslint-plugin-import": "^2.14.0",
-    "eslint-plugin-node": "^8.0.0",
-    "eslint-plugin-prettier": "^3.0.0",
+    "eslint-plugin-import": "^2.16.0",
+    "eslint-plugin-node": "^8.0.1",
+    "eslint-plugin-prettier": "^3.0.1",
     "eslint-plugin-promise": "^4.0.1",
     "eslint-plugin-standard": "^4.0.0",
-    "husky": "^1.2.0",
-    "lint-staged": "^8.1.0",
+    "husky": "^1.3.1",
+    "lint-staged": "^8.1.4",
     "morgan": "^1.9.1",
-    "nodemon": "^1.18.6",
-    "prettier": "^1.15.2"
+    "nodemon": "^1.18.10",
+    "prettier": "^1.16.4"
   },
   "repository": {
     "type": "git",
