@@ -6,7 +6,7 @@ module.exports = {
   async login(req, res, next) {
     const { name, password } = req.body
     if (!name || !password) {
-      return res.status(400).send({
+      return res.status(200).send({
         success: false,
         message: '用户名或密码不能为空'
       })
@@ -20,7 +20,9 @@ module.exports = {
         if (match) {
           const payload = {
             id: user._id,
-            role: user.role
+            role: user.role,
+            name: user.name,
+            avatar: user.avatar
           }
           const secret = process.env.JWT_SECRET
           const options = {
@@ -36,13 +38,13 @@ module.exports = {
             }
           })
         } else {
-          res.status(401).send({
+          res.status(200).send({
             success: false,
             message: '密码错误，登录失败'
           })
         }
       } else {
-        res.status(401).send({
+        res.status(200).send({
           success: false,
           message: '用户不存在，登录失败'
         })
