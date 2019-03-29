@@ -83,7 +83,7 @@ module.exports = {
   },
   async createBlog(req, res, next) {
     const payload = req.decoded
-    const { title, content, cover, category, tags } = req.body
+    const { title, overView, content, cover, category, tags } = req.body
     if (!title || !content) {
       return res.status(400).send({
         success: false,
@@ -94,6 +94,7 @@ module.exports = {
       const blog = new Blog({
         author: payload.id,
         title,
+        overView,
         content,
         cover,
         category,

@@ -11,6 +11,12 @@ const blogSchema = new Schema({
     unique: true,
     trim: true
   },
+  // 概述
+  overView: {
+    type: String,
+    trim: true,
+    default: null
+  },
   // 正文
   content: {
     type: String,
