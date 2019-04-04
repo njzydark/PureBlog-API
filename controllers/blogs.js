@@ -110,7 +110,7 @@ module.exports = {
     }
   },
   async updateBlogById(req, res, next) {
-    const { title, content, category, tags } = req.body
+    const { title, overView, content, category, tags } = req.body
     if (!title || !content) {
       return res.status(400).send({
         success: false,
@@ -122,6 +122,7 @@ module.exports = {
         req.params.id,
         {
           title,
+          overView,
           content,
           category,
           tags,
