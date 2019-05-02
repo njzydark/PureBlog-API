@@ -7,6 +7,8 @@ const blogs = require('./blogs')
 const categories = require('./categories')
 // 标签信息相关路由
 const tags = require('./tags')
+// 统计信息相关路由
+const statistic = require('./statistic')
 // 用户信息相关操作
 const usersController = require('../controllers/users')
 
@@ -16,5 +18,6 @@ router.use('/users', users)
 router.use('/blogs', blogs)
 router.use('/categories', categories)
 router.use('/tags', tags)
+router.use('/statistic', statistic)
 
 module.exports = router
