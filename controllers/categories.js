@@ -1,4 +1,5 @@
 const Category = require('../models/categories')
+const logger = require('../utils/logger')
 
 module.exports = {
   async getAllCategories(req, res, next) {
@@ -9,7 +10,8 @@ module.exports = {
         data: categoties
       })
     } catch (e) {
-      next(e)
+      logger.error(e.message)
+      next(new Error(`获取所有类别信息失败`))
     }
   },
   async createCategory(req, res, next) {
@@ -30,7 +32,8 @@ module.exports = {
         data: result
       })
     } catch (e) {
-      next(e)
+      logger.error(e.message)
+      next(new Error(`类别创建失败`))
     }
   },
   async updateCategoryById(req, res, next) {
@@ -56,7 +59,8 @@ module.exports = {
         data: category
       })
     } catch (e) {
-      next(e)
+      logger.error(e.message)
+      next(new Error(`类别更新失败`))
     }
   },
   async deleteCategoryById(req, res, next) {
@@ -67,7 +71,8 @@ module.exports = {
         data: result
       })
     } catch (e) {
-      next(e)
+      logger.error(e.message)
+      next(new Error(`类别删除失败`))
     }
   }
 }

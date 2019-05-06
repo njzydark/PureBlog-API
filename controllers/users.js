@@ -1,6 +1,7 @@
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const User = require('../models/users')
+const logger = require('../utils/logger')
 
 module.exports = {
   async login(req, res, next) {
@@ -50,7 +51,8 @@ module.exports = {
         })
       }
     } catch (e) {
-      next(e)
+      logger.error(e.message)
+      next(new Error(`登录失败`))
     }
   },
   async register(req, res, next) {
@@ -73,7 +75,8 @@ module.exports = {
         data: result
       })
     } catch (e) {
-      next(e)
+      logger.error(e.message)
+      next(new Error(`注册失败`))
     }
   },
   async getAllUsers(req, res, next) {
@@ -84,7 +87,8 @@ module.exports = {
         data: users
       })
     } catch (e) {
-      next(e)
+      logger.error(e.message)
+      next(new Error(`获取所有用户信息失败`))
     }
   },
   async getUserById(req, res, next) {
@@ -95,7 +99,8 @@ module.exports = {
         data: user
       })
     } catch (e) {
-      next(e)
+      logger.error(e.message)
+      next(new Error(`获取用户信息失败`))
     }
   },
   async deleteUserById(req, res, next) {
@@ -106,7 +111,8 @@ module.exports = {
         data: result
       })
     } catch (e) {
-      next(e)
+      logger.error(e.message)
+      next(new Error(`用户删除失败`))
     }
   }
 }

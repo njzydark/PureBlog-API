@@ -1,5 +1,6 @@
 const Blog = require('../models/blogs')
 const config = require('../config')
+const logger = require('../utils/logger')
 
 module.exports = {
   async getAllBlogs(req, res, next) {
@@ -17,7 +18,8 @@ module.exports = {
         total
       })
     } catch (e) {
-      next(e)
+      logger.error(e.message)
+      next(new Error('获取所有博客信息失败'))
     }
   },
   async getBlogsByCategoryId(req, res, next) {
@@ -40,7 +42,8 @@ module.exports = {
         total
       })
     } catch (e) {
-      next(e)
+      logger.error(e.message)
+      next(new Error(`获取当前类别下的所有博客信息失败`))
     }
   },
   async getBlogsByTagId(req, res, next) {
@@ -67,7 +70,8 @@ module.exports = {
         total
       })
     } catch (e) {
-      next(e)
+      logger.error(e.message)
+      next(new Error(`获取当前标签下的所有博客信息失败`))
     }
   },
   async getBlogById(req, res, next) {
@@ -78,7 +82,8 @@ module.exports = {
         data: blog
       })
     } catch (e) {
-      next(e)
+      logger.error(e.message)
+      next(new Error(`获取当前博客信息失败`))
     }
   },
   async createBlog(req, res, next) {
@@ -106,7 +111,8 @@ module.exports = {
         data: result
       })
     } catch (e) {
-      next(e)
+      logger.error(e.message)
+      next(new Error(`博客创建失败`))
     }
   },
   async updateBlogById(req, res, next) {
@@ -137,7 +143,8 @@ module.exports = {
         data: blog
       })
     } catch (e) {
-      next(e)
+      logger.error(e.message)
+      next(new Error(`博客更新失败`))
     }
   },
   async updateBlogViewsById(req, res, next) {
@@ -165,7 +172,8 @@ module.exports = {
         data: result
       })
     } catch (e) {
-      next(e)
+      logger.error(e.message)
+      next(new Error(`增加博客阅读次数失败`))
     }
   },
   async updateBlogLikesById(req, res, next) {
@@ -200,7 +208,8 @@ module.exports = {
         data: result
       })
     } catch (e) {
-      next(e)
+      logger.error(e.message)
+      next(new Error(`博客点赞失败`))
     }
   },
   async deleteBlogById(req, res, next) {
@@ -211,7 +220,8 @@ module.exports = {
         data: result
       })
     } catch (e) {
-      next(e)
+      logger.error(e.message)
+      next(new Error(`博客删除失败`))
     }
   }
 }

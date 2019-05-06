@@ -2,6 +2,7 @@ const User = require('../models/users')
 const Blog = require('../models/blogs')
 const Category = require('../models/categories')
 const Tag = require('../models/tags')
+const logger = require('../utils/logger')
 
 module.exports = {
   // 获取用户、博客、类别和标签数量
@@ -30,7 +31,8 @@ module.exports = {
         data: [userCount, blogCount, categoryCount, tagCount]
       })
     } catch (e) {
-      next(e)
+      logger.error(e.message)
+      next(new Error(`获取用户、博客、类别和标签数量失败`))
     }
   },
   // 获取近半年用户博客数量统计数据
@@ -97,7 +99,8 @@ module.exports = {
         users
       })
     } catch (e) {
-      next(e)
+      logger.error(e.message)
+      next(new Error(`获取近半年用户博客数量统计数据失败`))
     }
   },
   // 获取类别占比数据
@@ -140,7 +143,8 @@ module.exports = {
         data
       })
     } catch (e) {
-      next(e)
+      logger.error(e.message)
+      next(new Error(`获取类别占比数据失败`))
     }
   },
   // 获取标签占比数据
@@ -186,7 +190,8 @@ module.exports = {
         data
       })
     } catch (e) {
-      next(e)
+      logger.error(e.message)
+      next(new Error(`获取标签占比数据失败`))
     }
   }
 }

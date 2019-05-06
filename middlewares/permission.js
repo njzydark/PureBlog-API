@@ -1,4 +1,5 @@
 const Blog = require('../models/blogs')
+const logger = require('../utils/logger')
 
 module.exports = {
   isAdmin(req, res, next) {
@@ -43,7 +44,8 @@ module.exports = {
         })
       }
     } catch (e) {
-      next(e)
+      logger.error(e.message)
+      next(new Error(`博客ID检查失败`))
     }
   }
 }

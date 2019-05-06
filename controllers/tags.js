@@ -1,4 +1,5 @@
 const Tag = require('../models/tags')
+const logger = require('../utils/logger')
 
 module.exports = {
   async getAllTags(req, res, next) {
@@ -9,7 +10,8 @@ module.exports = {
         data: tags
       })
     } catch (e) {
-      next(e)
+      logger.error(e.message)
+      next(new Error(`获取所有标签信息失败`))
     }
   },
   async createTag(req, res, next) {
@@ -30,7 +32,8 @@ module.exports = {
         data: result
       })
     } catch (e) {
-      next(e)
+      logger.error(e.message)
+      next(new Error(`标签创建失败`))
     }
   },
   async updateTagById(req, res, next) {
@@ -56,7 +59,8 @@ module.exports = {
         data: tag
       })
     } catch (e) {
-      next(e)
+      logger.error(e.message)
+      next(new Error(`标签更新失败`))
     }
   },
   async deleteTagById(req, res, next) {
@@ -67,7 +71,8 @@ module.exports = {
         data: result
       })
     } catch (e) {
-      next(e)
+      logger.error(e.message)
+      next(new Error(`标签删除失败`))
     }
   }
 }
