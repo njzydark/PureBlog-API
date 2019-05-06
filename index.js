@@ -2,8 +2,9 @@ require('dotenv').config()
 const express = require('express')
 const mongoose = require('mongoose')
 mongoose.Promise = global.Promise
-const logger = require('morgan')
+const logger = require('./utils/logger')
 const bodyParser = require('body-parser')
+const handleLog = require('./middlewares/handleLog')
 const handleError = require('./middlewares/handleError')
 const handleCORS = require('./middlewares/handleCORS')
 
@@ -25,10 +26,8 @@ app.use(
   })
 )
 
-// 运行环境为开发时，开启错误日志
-if (environment == 'development') {
-  app.use(logger('dev'))
-}
+// 记录Http请求日志
+app.use(handleLog)
 
 app.all('*', handleCORS)
 
@@ -47,13 +46,13 @@ mongoose.connect(
   },
   err => {
     if (err) {
-      console.log(err)
+      logger.error(err.message)
     } else {
-      console.log('数据库连接成功')
+      logger.info(`数据库连接成功`)
     }
   }
 )
 
 app.listen(stage.port, () => {
-  console.log(`服务监听地址 http://localhost:${stage.port}`)
+  logger.info(`启动成功，服务监听地址 http://localhost:${stage.port}`)
 })
