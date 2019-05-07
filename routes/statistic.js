@@ -6,5 +6,6 @@ router.get('/allCount', validateToken, controller.getAllCount)
 router.get('/blogCountTrend', validateToken, controller.getBlogCountTrend)
 router.get('/categoryProportionData', validateToken, controller.getCategoryProportionData)
 router.get('/tagProportionData', validateToken, controller.getTagProportionData)
+router.get('/blogArchive', controller.getBlogArchive)
 
 module.exports = router
