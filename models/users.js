@@ -37,6 +37,12 @@ const userSchema = new Schema({
     type: String,
     trim: true,
     default: null
+  },
+  // 自我介绍
+  introduction: {
+    type: String,
+    trim: true,
+    default: null
   }
 })
 

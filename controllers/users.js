@@ -103,6 +103,31 @@ module.exports = {
       next(new Error(`获取用户信息失败`))
     }
   },
+  async updateUserById(req, res, next) {
+    const { name, email, avatar, introduction } = req.body
+    if (!name || !email) {
+      return res.status(400).send({
+        success: false,
+        message: '用户名或邮箱不能为空'
+      })
+    }
+    try {
+      const user = await User.findByIdAndUpdate(
+        req.params.id,
+        { name, email, avatar, introduction },
+        {
+          new: true
+        }
+      ).exec()
+      res.status(200).send({
+        success: true,
+        data: user
+      })
+    } catch (e) {
+      logger.error(e.message)
+      next(new Error(`用户信息更新失败`))
+    }
+  },
   async deleteUserById(req, res, next) {
     try {
       const result = await User.findByIdAndDelete(req.params.id).exec()
