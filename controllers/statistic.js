@@ -279,5 +279,18 @@ module.exports = {
       logger.error(e.message)
       next(new Error('博客归档获取失败'))
     }
+  },
+  // 获取用户基础信息用于关于页面
+  async getUserInfo(req, res, next) {
+    try {
+      const users = await User.find(null, { name: 1, avatar: 1, introduction: 1 }).exec()
+      res.status(200).send({
+        success: true,
+        data: users
+      })
+    } catch (e) {
+      logger.error(e.message)
+      next(new Error(`获取所有用户信息失败`))
+    }
   }
 }
