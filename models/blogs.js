@@ -69,6 +69,11 @@ const blogSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'User',
     required: true
+  },
+  // 博客状态 0 禁用 1 正常 2 草稿
+  status: {
+    type: Number,
+    default: 1
   }
 })
 

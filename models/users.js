@@ -43,6 +43,11 @@ const userSchema = new Schema({
     type: String,
     trim: true,
     default: null
+  },
+  // 状态 0 禁用 1 正常
+  status: {
+    type: Number,
+    default: 0
   }
 })
 

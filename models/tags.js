@@ -8,6 +8,11 @@ const tagSchema = new Schema({
     trim: true,
     unique: true,
     required: true
+  },
+  // 状态 0 禁用 1 正常
+  status: {
+    type: Number,
+    default: 1
   }
 })
 
