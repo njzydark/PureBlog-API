@@ -6,7 +6,13 @@ module.exports = {
   async getAllBlogs(req, res, next) {
     try {
       Blog.schema.set('reqQuery', req.query)
-      const blogsPromise = Blog.find().exec()
+      let blogsPromise
+      if (req.query.title) {
+        const blogRe = new RegExp(req.query.title, 'i')
+        blogsPromise = Blog.find({ title: blogRe }).exec()
+      } else {
+        blogsPromise = Blog.find().exec()
+      }
       const totalPromise = Blog.find()
         .estimatedDocumentCount()
         .exec()

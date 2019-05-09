@@ -74,10 +74,12 @@ const blogSchema = new Schema({
 
 // 分页
 function paging() {
-  let { page, limit } = this.schema.set('reqQuery')
+  let { page, limit, title } = this.schema.set('reqQuery')
   limit = limit == undefined ? parseInt(config.blogsLimit) : parseInt(limit)
   page = page == undefined ? 1 : parseInt(page)
-  this.skip(limit * (page - 1)).limit(limit)
+  if (!title) {
+    this.skip(limit * (page - 1)).limit(limit)
+  }
 }
 
 // 关联查询
