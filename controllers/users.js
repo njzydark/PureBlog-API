@@ -76,7 +76,7 @@ module.exports = {
       })
     } catch (e) {
       logger.error(e.message)
-      next(new Error(`注册失败`))
+      next(new Error(`用户创建失败`))
     }
   },
   async getAllUsers(req, res, next) {
