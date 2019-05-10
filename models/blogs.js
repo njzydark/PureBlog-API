@@ -107,9 +107,15 @@ function populate() {
     })
 }
 
+// 排序
+function sort() {
+  this.sort({ createTime: -1 })
+}
+
 blogSchema.pre('find', function() {
   paging.call(this)
   populate.call(this)
+  sort.call(this)
 })
 blogSchema.pre('findOne', populate)
 
